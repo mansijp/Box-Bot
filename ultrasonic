@@ -1,0 +1,69 @@
+int trigPin = 5;
+int echoPin = 6;
+
+int mot4 = 9;    
+int mot1 = 11;      
+int mot2 = 12;       
+int mot3 = 10; 
+
+int c = 0;
+//______________________________________________________
+
+void RIGHT()
+{
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  digitalWrite(10, LOW);  
+  digitalWrite(9, HIGH);
+}
+void LEFT()
+{
+  digitalWrite(11, LOW);
+  digitalWrite(12, HIGH);
+  digitalWrite(10, HIGH);  
+  digitalWrite(9, LOW);
+}
+void FORW()
+{
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  digitalWrite(10, HIGH);
+  digitalWrite(9, LOW);
+}
+//________________________________________________________
+void setup() {
+  //Serial.begin(9600); 
+  
+   pinMode(10, OUTPUT);
+   pinMode(12, OUTPUT);
+   pinMode(9, OUTPUT);
+   pinMode(11, OUTPUT);
+   
+   pinMode(trigPin, OUTPUT);
+   pinMode(echoPin, INPUT);
+}
+
+void loop() 
+{
+  long duration, distance;
+  digitalWrite(trigPin,HIGH);
+  delayMicroseconds(1000);
+  digitalWrite(trigPin, LOW);
+  duration=pulseIn(echoPin, HIGH);
+  distance =(duration/2)/29.1;
+  //Serial.print(distance);
+  //Serial.println("CM");
+  delay(10);
+ 
+  
+  if(distance>20)
+ {
+    FORW();                           
+ }
+ 
+  else if(distance<20)  
+ {
+   LEFT();                              
+ }
+ 
+}
