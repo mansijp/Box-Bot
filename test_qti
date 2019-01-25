@@ -1,0 +1,26 @@
+
+
+int Rightsensor =2; // Assign Digital pin 2 of Arduino to Right Sensor 
+int Leftsensor= 3;  // Assign Digital pin 3 of Arduino to Left Sensor 
+
+byte i;
+//_______________________________________
+
+void setup()
+{
+ // set the sensor pins as an input:
+  pinMode(Leftsensor,INPUT);
+  pinMode(Rightsensor,INPUT);
+  
+  Serial.begin(9600); 
+}
+//_______________________________________
+
+void loop()
+{
+// Open the Serial Monitor by clicking on Tools > Serial MOnitor. Put a finger over the sensor and notice that the numbers change from 1 to 0 or vice versa  
+  Serial.print(digitalRead(Leftsensor));
+  Serial.println(digitalRead(Rightsensor));
+
+  delay(200);  
+}
