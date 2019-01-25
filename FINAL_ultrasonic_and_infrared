@@ -1,0 +1,183 @@
+//PREVIOUSLY KNOWN AS "ultra_and_infra" BY ME
+
+//MOTOR PINS
+int mot1=11;//left forward
+int mot2=12;//left backwaard
+int mot3=10;//right forward
+int mot4=9;//right backward
+
+//ULTRASONIC PINS
+int trigPin = 6;
+int echoPin = 7;
+
+int c = 0;
+
+//INFRARED PINS
+int left=3;
+int right=2;
+
+//INFRARED START VALUES
+int Left=1;
+int Right=1;
+
+//ALL VOID FUNCTIONS FOR INFRARED
+void LEFT (void);
+void RIGHT (void);
+void FORW(void);
+void STOP (void);
+//void DELAY(void);       --> OPTIONAL
+
+//ALL VOID FUNCTIONS FOR ULTRASONIC
+void RIGHTultra(void);
+void LETFultra(void);
+void FORWultra(void);
+
+//____________________________________________
+//VOIDS FOR INFRARED
+/*void DELAY ()
+{
+  if((Left==0 && Right==1) || (Right==0 && Left==1))
+  {
+    digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+    digitalWrite(mot2, LOW);
+    digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+    digitalWrite(mot4, LOW);
+  }
+}*/
+void RIGHT(int len)                                 //integer len is --> length of delay
+{
+  digitalWrite(mot1, HIGH);//Motor 1 Backward
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, LOW);//Motor 2 Forward  
+  digitalWrite(mot4, HIGH);
+  delay(len);
+}
+void LEFT(int len)
+{
+  digitalWrite(mot1, LOW);//Motor 1 forward
+  digitalWrite(mot2, HIGH);
+  digitalWrite(mot3, HIGH);//Motor 2 backward  
+  digitalWrite(mot4, LOW);
+  delay(len);
+}
+void FORW(int len)
+{
+  digitalWrite(mot1, HIGH);//Motor 1 BBACKWARD
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, HIGH);//Motor 2 BACKWARD
+  digitalWrite(mot4, LOW);
+  delay(len);
+}
+void BACK(int len)
+{
+  digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(mot2, HIGH);
+  digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+  digitalWrite(mot4, HIGH);
+  delay(len);
+}
+void STOP(int len)
+{
+  digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+  digitalWrite(mot4, LOW);
+  delay(len);
+
+}
+//________________________________________________________
+//VOIDS FOR ULTRASONIC
+void RIGHTultra()
+{
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  digitalWrite(10, LOW); 
+  digitalWrite(9, HIGH);
+}
+void LEFTultra()
+{
+  digitalWrite(11, LOW);
+  digitalWrite(12, HIGH);
+  digitalWrite(10, HIGH); 
+  digitalWrite(9, LOW);
+}
+void FORWultra()
+{
+  digitalWrite(11, HIGH);
+  digitalWrite(12, LOW);
+  digitalWrite(10, HIGH);
+  digitalWrite(9, LOW);
+}
+void STOPultra()
+{
+  digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+  digitalWrite(mot4, LOW);
+}
+//______________________________________________________
+void setup()
+{
+  //Serial.begin(9600);         --> SERIAL MONITOR IS OPTIONAL
+  
+  pinMode(mot1,OUTPUT);
+  pinMode(mot2,OUTPUT);
+  pinMode(mot3,OUTPUT);
+  pinMode(mot4,OUTPUT);
+
+  pinMode(left,INPUT);
+  pinMode(right,INPUT);
+
+  digitalWrite(left,HIGH);
+  digitalWrite(right,HIGH); 
+
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+}
+//_______________________________________________
+
+void loop() 
+{
+  //SETTING UP ULTRASONIC
+  long duration, distance;
+  digitalWrite(trigPin,HIGH);
+  delayMicroseconds(1000);
+  digitalWrite(trigPin, LOW);
+  duration=pulseIn(echoPin, HIGH);
+  distance =(duration/2)/29.1;
+  //Serial.print(distance);
+  //Serial.println("CM");
+  delay(10);
+  
+  /*//ALLOWS BOT TO GO FORWARD
+  analogWrite(mot1,150);
+  analogWrite(mot2,0);
+  analogWrite(mot3,150);
+  analogWrite(mot4,0);
+  */
+  
+   Left=digitalRead(left);
+   Right=digitalRead(right);
+
+  if(distance > 15)                           //LINE FOLLOWING
+  {
+    if(Left==1 && Right==0)
+      {
+        LEFT(23);                           //MIGHT HAVE TO ADJUST THESE VALUES BASED ON YOUR ROBOT'S FUNCTIONALITY
+        FORW(7);
+      }
+      else if(Right==1 && Left==0)
+      {
+        RIGHT(23);                        //ADJUSTMENTS MAY BE REQUIRED
+        FORW(7);
+      }
+  }
+ 
+   else if (distance < 15)                     //OBSTACLE AVOIDANCE
+     {
+      BACK(800);
+      RIGHT(340);
+      FORW(2800);
+      LEFT(500);
+    }
+  }
