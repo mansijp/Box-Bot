@@ -1,0 +1,105 @@
+//PREVIOUSLY KNOWN AS THE "LOOP_IN_THE_LOOP" CODE CREATED BY ME
+
+
+const int motorR1 = 11;//Initialize 1st motor's 1st terminal
+const int motorR2 = 12;//Initialize 1st motor's 2nd terminal
+const int motorL1 = 10;//Initialize 2nd motor's 1st terminal
+const int motorL2 = 9;//Initialize 2nd motor's 2nd terminal
+
+//____________________________________________________________
+void setup()
+{
+  pinMode(motorR1, OUTPUT);//Set 1st motor's 1st terminal as output
+  pinMode(motorR2, OUTPUT);//Set 1st motor's 2nd terminal as output
+  pinMode(motorL1, OUTPUT);//Set 2nd motor's 1st terminal as output
+  pinMode(motorL2, OUTPUT);//Set 2nd motor's 2nd terminal as output
+}
+//_______________________________________________________________________________
+
+//DIRECTIONS
+
+void right(int len)
+{
+  digitalWrite(motorR1, HIGH);//Motor 1 Backward
+  digitalWrite(motorR2, LOW);
+  digitalWrite(motorL1, LOW);//Motor 2 Forward  
+  digitalWrite(motorL2, HIGH);
+  delay(len);
+}
+void left(int len)
+{
+  digitalWrite(motorR1, LOW);//Motor 1 forward
+  digitalWrite(motorR2, HIGH);
+  digitalWrite(motorL1, HIGH);//Motor 2 backward  
+  digitalWrite(motorL2, LOW);
+  delay(len);
+}
+void backward(int len)
+{
+  digitalWrite(motorR1, HIGH);//Motor 1 FORWARRD
+  digitalWrite(motorR2, LOW);
+  digitalWrite(motorL1, HIGH);//Motor 2 Forward  
+  digitalWrite(motorL2, LOW);
+  delay(len);
+}
+void forward(int len)
+{
+  digitalWrite(motorR1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(motorR2, HIGH);
+  digitalWrite(motorL1, LOW);//Motor 2 BACKWARD
+  digitalWrite(motorL2, HIGH);
+  delay(len);
+}
+void brake(int len)
+{
+  digitalWrite(motorR1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(motorR2, LOW);
+  digitalWrite(motorL1, LOW);//Motor 2 BACKWARD
+  digitalWrite(motorL2, LOW);
+  delay(len);
+}
+//________________________________________________________________
+
+//LOOP IN LOOP - STRAIGHT
+
+void straight(int wait)
+{
+  int i=0;
+  while(i <= (wait/100))
+  {
+    right(75);
+    forward(100);
+    left(75);
+    forward(100);
+    i++;
+  }
+}
+//___________________________________________________________________
+//TASK MAIN
+
+void loop()
+{
+  brake(1000);
+  straight(2800);
+  brake(700);
+  left(950);
+  brake(700);
+  straight(900);
+  brake(700);
+  left(950);
+  brake(700);
+  straight(2800);
+  
+  left(2000);     //180 degree turn
+  
+  straight(2800);
+  brake(700);
+  right(1000);
+  brake(700);
+  straight(800);
+  brake(700);
+  right(1000);
+  brake(700);
+  straight(2800);
+  brake(60000);
+}
