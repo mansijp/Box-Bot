@@ -1,0 +1,106 @@
+int mot1=11;//left forward
+int mot2=12;//left backwaard
+int mot3=10;//right forward
+int mot4=9;//right backward
+
+int left=2;
+int right=3;
+
+int Left=0;
+int Right=0;
+
+void LEFT (void);
+void RIGHT (void);
+void STOP (void);
+//void DELAY(void);         --> OPTIONAL FUNCTION
+
+//_____________________________________________________
+
+void setup()
+{
+  pinMode(mot1,OUTPUT);
+  pinMode(mot2,OUTPUT);
+  pinMode(mot3,OUTPUT);
+  pinMode(mot4,OUTPUT);
+
+  pinMode(left,INPUT);
+  pinMode(right,INPUT);
+
+  digitalWrite(left,HIGH);
+  digitalWrite(right,HIGH);  
+}
+
+//_______________________________________________
+
+/*void DELAY ()
+{
+  if((Left==0 && Right==1) || (Right==0 && Left==1))
+  {
+    digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+    digitalWrite(mot2, LOW);
+    digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+    digitalWrite(mot4, LOW);
+  }
+}*/
+void RIGHT(int len)
+{
+  digitalWrite(mot1, HIGH);//Motor 1 Backward
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, LOW);//Motor 2 Forward  
+  digitalWrite(mot4, HIGH);
+  delay(len);
+}
+void LEFT(int len)
+{
+  digitalWrite(mot1, LOW);//Motor 1 forward
+  digitalWrite(mot2, HIGH);
+  digitalWrite(mot3, HIGH);//Motor 2 backward  
+  digitalWrite(mot4, LOW);
+  delay(len);
+}
+void FORW(int len)
+{
+  digitalWrite(mot1, HIGH);//Motor 1 BBACKWARD
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, HIGH);//Motor 2 BACKWARD
+  digitalWrite(mot4, LOW);
+  delay(len);
+}
+
+void STOP()
+{
+  digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+  digitalWrite(mot4, LOW);
+  delay(5);
+
+}
+//________________________________________________________
+void loop() 
+{
+
+//ALLOWS BOT TO GO FORWARD
+analogWrite(mot1,150);
+analogWrite(mot2,0);
+analogWrite(mot3,150);
+analogWrite(mot4,0);
+
+while(1)
+{
+  Left=digitalRead(left);
+  Right=digitalRead(right);
+  
+  if((Left==0 && Right==1))
+  {
+    LEFT(10);
+    FORW(10);  
+  }
+  else if((Right==0 && Left==1))
+  {
+    RIGHT(10);
+    FORW(10);
+  }
+}
+
+}
