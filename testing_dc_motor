@@ -1,0 +1,66 @@
+int mot1=11;//left forward
+int mot2=12;//left backwaard
+
+int mot3=10;//right forward
+int mot4=9;//right backward
+//_________________________________________________________
+void RIGHT(int len)
+{
+  digitalWrite(mot1, HIGH);//Motor 1 Backward
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, LOW);//Motor 2 Forward  
+  digitalWrite(mot4, HIGH);
+  delay(len);
+}
+void LEFT(int len)
+{
+  digitalWrite(mot1, LOW);//Motor 1 forward
+  digitalWrite(mot2, HIGH);
+  digitalWrite(mot3, HIGH);//Motor 2 backward  
+  digitalWrite(mot4, LOW);
+  delay(len);
+}
+void FORW(int len)
+{
+  digitalWrite(mot1, HIGH);//Motor 1 BBACKWARD
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, HIGH);//Motor 2 BACKWARD
+  digitalWrite(mot4, LOW);
+  delay(len);
+}
+void BACK(int len)
+{
+  digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(mot2, HIGH);
+  digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+  digitalWrite(mot4, HIGH);
+  delay(len);
+}
+void STOP(int len)
+{
+  digitalWrite(mot1, LOW);//Motor 1 BBACKWARD
+  digitalWrite(mot2, LOW);
+  digitalWrite(mot3, LOW);//Motor 2 BACKWARD
+  digitalWrite(mot4, LOW);
+  delay(len);
+}
+//___________________________________________________________
+void setup()
+{
+  pinMode(mot1,OUTPUT);
+  pinMode(mot2,OUTPUT);
+  pinMode(mot3,OUTPUT);
+  pinMode(mot4,OUTPUT);
+}
+//_____________________________________________________________
+void loop()
+{
+  STOP(1000);
+  FORW(500);
+  STOP(200);
+  BACK(500);
+  STOP(200);
+  RIGHT(500);
+  STOP(200);
+  LEFT(500);
+}
