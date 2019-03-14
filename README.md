@@ -4,6 +4,8 @@
 
 1) Uses QTI sensors and an ultrasonic sensor
 2) Troubleshooting codes included
-3) Arduino IDE used
-4) Arduino Genuino/Uno board used
+3) Used Arduino IDE
+4) Used Arduino Genuino/Uno board
 5) A robot may be required to test out some of these codes 
+
+Tip: Using Arduino Genuino/Uno, and a couple sensors mentioned above to create a bot that these codes can be tested on.
